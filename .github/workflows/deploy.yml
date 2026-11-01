@@ -2,7 +2,6 @@ name: Publier les fiches
 on:
   push:
     branches: [main]
-    paths: ["word/**", "app/**", "build/**", ".github/workflows/**"]
   workflow_dispatch:
 permissions:
   contents: read
