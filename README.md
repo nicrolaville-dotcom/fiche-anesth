@@ -12,8 +12,8 @@ Le Word fait plus de 25 Mo : l'envoi par le site github.com ne marche pas, utili
 
 ## Structure attendue du Word
 - **Titre 1** = domaine. Correspondance dans `build/build.py` (`H1_MAP`) :
-  Anesthésie / Réanimation / Infectiologie → Adulte ; Anesthésie pédiatrique / Réanimation pédiatrique → Pédiatrie.
-  Un Titre 1 inconnu apparaît dans une rubrique « Autres ».
+  Anesthésie / Réanimation (ou Réanimation/USC) / Infectiologie → Adulte ; Anesthésie pédiatrique / Réanimation pédiatrique → Pédiatrie.
+  Un Titre 1 inconnu placé après un domaine devient un chapitre de ce domaine (ses Titre 2 deviennent des sections).
 - **Titre 2** = chapitre (y compris un Titre 2 placé dans la 1re ligne d'un tableau).
 - **Titre 3** = section dans le chapitre (raccourcis dans le sommaire, recherche par section).
 
