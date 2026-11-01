@@ -1,11 +1,7 @@
 :root {
-  --bg: #f6f7f8; --card: #fff; --fg: #1b1f23; --muted: #6a737d; --line: #e1e4e8;
+  --bg: #ffffff; --card: #fff; --fg: #1b1f23; --muted: #6a737d; --line: #e1e4e8;
   --accent: #0f4c5c; --accent-fg: #fff; --mark: #ffe58a; --th: #eef3f5;
-  color-scheme: light dark;
-}
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #111417; --card: #1b2026; --fg: #e6e8ea; --muted: #9aa4ad; --line: #2c333b; --accent: #2a7f93; --mark: #7a6312; --th: #222a31; }
-  .fiche img { background: #fff; }
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -56,3 +52,10 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; }
 .subs a { padding: 4px 9px; font-size: 13px; font-weight: 400; border: 1px solid var(--line); border-radius: 14px; text-decoration: none; color: var(--accent); }
 .fiche th, .fiche td { overflow-wrap: normal; word-break: normal; -webkit-hyphens: auto; hyphens: auto; }
 .fiche td:first-child { min-width: 92px; }
+.seg { display: flex; background: #eef1f3; border-radius: 10px; padding: 3px; margin: 0 0 14px; }
+.seg button { flex: 1; border: 0; background: none; padding: 8px; font-size: 15px; border-radius: 8px; color: var(--fg); }
+.seg button.on { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.15); font-weight: 600; }
+#view[data-mode="word"] .modefiche { display: none; }
+#view:not([data-mode="word"]) .word { display: none; }
+.word img { display: block; width: 100%; height: auto; margin: 0 0 10px; border: 1px solid var(--line); border-radius: 4px; cursor: zoom-in; }
+.fiche .shaded { padding: 6px 10px; border-radius: 6px; }

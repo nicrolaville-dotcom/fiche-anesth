@@ -68,7 +68,23 @@ async function renderChapter(id, sec) {
   const toc = f.c.sections.length > 1
     ? `<details class="toc"><summary>Sommaire du chapitre (${f.c.sections.length})</summary>${f.c.sections.map((s) => `<a href="#/c/${id}/${s.id}">${esc(s.title)}</a>`).join("")}</details>` : "";
   const pn = `<nav class="pn">${f.prev ? `<a href="#/c/${f.prev.id}">‹ ${esc(f.prev.title)}</a>` : "<span></span>"}${f.next ? `<a href="#/c/${f.next.id}">${esc(f.next.title)} ›</a>` : ""}</nav>`;
-  view.innerHTML = `<p class="crumb">${esc(f.b.name)} › ${esc(f.d.name)}</p><h1 class="ct">${esc(f.c.title)}</h1>${toc}<article class="fiche">${body}</article>${pn}`;
+  const pages = f.c.pages || [];
+  let mode = "fiche";
+  try { mode = localStorage.getItem("mode") || "fiche"; } catch (e) {}
+  if (!pages.length || sec || sessionStorage.getItem("hl")) mode = "fiche";
+  const seg = pages.length ? `<div class="seg"><button data-m="fiche">Fiche</button><button data-m="word">Page Word</button></div>` : "";
+  const word = `<div class="word">${pages.map((p) => `<img loading="lazy" src="pages/${p}" alt="Page du Word">`).join("")}<p class="muted">Touchez une page pour l'agrandir.</p></div>`;
+  view.innerHTML = `<p class="crumb">${esc(f.b.name)} › ${esc(f.d.name)}</p><h1 class="ct">${esc(f.c.title)}</h1>${seg}<div class="modefiche">${toc}<article class="fiche">${body}</article></div>${pages.length ? word : ""}${pn}`;
+  const setMode = (m) => {
+    view.dataset.mode = m;
+    view.querySelectorAll(".seg button").forEach((b) => b.classList.toggle("on", b.dataset.m === m));
+  };
+  setMode(mode);
+  view.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => {
+    setMode(b.dataset.m);
+    try { localStorage.setItem("mode", b.dataset.m); } catch (e) {}
+  }));
+  view.querySelectorAll(".word img").forEach((im) => im.addEventListener("click", () => zoom(im.src)));
   view.querySelectorAll(".fiche img").forEach((im) => im.addEventListener("click", () => zoom(im.src)));
   const hl = sessionStorage.getItem("hl"); sessionStorage.removeItem("hl");
   if (hl) highlight(view.querySelector(".fiche"), hl);
@@ -135,7 +151,7 @@ q.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => { cons
 q.addEventListener("focus", () => loadIndex());
 $("#sbtn").addEventListener("click", () => { sbox.hidden = false; q.focus(); });
 backBtn.addEventListener("click", () => { location.hash = backBtn.dataset.to || "#/"; });
-window.addEventListener("hashchange", render);
+window.addEventListener("hashchange", () => { document.querySelectorAll(".zoom").forEach((z) => z.remove()); render(); });
 if (!location.hash) history.replaceState(null, "", "#/");
 render();
 

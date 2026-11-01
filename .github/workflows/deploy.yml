@@ -15,11 +15,13 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: Outils (pandoc, LibreOffice pour les images EMF)
+      - name: Outils (pandoc, LibreOffice, polices, poppler)
         run: |
           sudo apt-get update -q
-          sudo apt-get install -y -q --no-install-recommends pandoc libreoffice-draw-nogui || sudo apt-get install -y -q pandoc libreoffice-draw
-          pip install -q pillow
+          sudo apt-get install -y -q --no-install-recommends pandoc poppler-utils \
+            libreoffice-writer-nogui libreoffice-draw-nogui \
+            fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation fonts-dejavu-core fonts-noto-core
+          pip install -q pillow lxml pypdf
       - name: Générer le site
         run: |
           DOCX=$(ls word/*.docx | head -n 1)
