@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fiches anesth</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f4c5c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fiches">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="bar">
+  <button id="back" aria-label="Retour" hidden>‹</button>
+  <h1 id="title">Fiches</h1>
+  <button id="sbtn" aria-label="Rechercher">⌕</button>
+</header>
+<div id="sbox" hidden>
+  <input id="q" type="search" placeholder="Rechercher (ex : kétamine, PAED…)" autocomplete="off" autocorrect="off" spellcheck="false">
+</div>
+<main id="view"></main>
+<div id="update" hidden>Nouvelle version des fiches. <button id="reload">Mettre à jour</button></div>
+<script src="app.js"></script>
+</body>
+</html>
