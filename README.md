@@ -2,6 +2,8 @@
 
 Site statique installable (PWA), lisible hors ligne, généré à partir du Word `word/fiches.docx`.
 
+**Adresse de l'app : https://nicrolaville-dotcom.github.io/fiche-anesth/** (Safari › Partager › « Sur l'écran d'accueil »).
+
 ## Mettre à jour les fiches
 1. Remplacer `word/fiches.docx` par la nouvelle version du Word (même nom, un seul .docx dans le dossier).
 2. Commit + push sur `main` : l'action « Publier les fiches » régénère et publie le site (≈ 3 min).
