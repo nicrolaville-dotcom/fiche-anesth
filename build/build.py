@@ -16,6 +16,7 @@ APP = ROOT / "app"
 H1_MAP = {
     "anesthesie": ("Adulte", "Anesthésie"),
     "reanimation": ("Adulte", "Réanimation"),
+    "reanimation usc": ("Adulte", "Réanimation"),
     "infectiologie": ("Adulte", "Infectiologie"),
     "anesthesie pediatrique": ("Pédiatrie", "Anesthésie"),
     "reanimation pediatrique": ("Pédiatrie", "Réanimation"),
@@ -165,6 +166,19 @@ def main(docx, out):
     print("3/4 découpage")
     chapters, cur, h1 = [], None, None
     for b in d["blocks"]:
+        if b["t"] == "Header" and b["c"][0] == 1:
+            t = clean_title(inline_text(b["c"][2]))
+            if norm(t) not in H1_MAP and h1 and t:
+                # Titre 1 inconnu après un domaine connu = fiche importée d'un niveau trop haut :
+                # elle devient un chapitre du domaine courant, ses Titre 2 deviennent des sections.
+                cur = {**h1, "title": t, "blocks": [], "promoted": True}
+                chapters.append(cur)
+                continue
+        if cur and cur.get("promoted") and not (b["t"] == "Header" and b["c"][0] == 1):
+            if b["t"] == "Header":
+                b["c"][0] += 1
+            cur["blocks"].append(b)
+            continue
         if b["t"] == "Table" and h1:
             t = nested_h2(b)
             if t:
